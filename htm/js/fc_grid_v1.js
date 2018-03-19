@@ -171,15 +171,15 @@ var FCGrid$ = function () {
     magicZoomFC: function(id, novoArray, novoArrayAmp, FC_MaxImages, refreshZoom){
 
       var imgDetMini="", imgAmpMini="", sHtmlZoom="";
+      var sNameProd = fn.getNameProduct();
       for (var i=0;i<=FC_MaxImages;i++)
       {
         if(i===0)
         {
           imgDetMini=novoArray[i];
           imgAmpMini=novoArrayAmp[i];
-          sHtmlZoom+="<a href="+imgAmpMini+" title=\""+ fn.getNameProduct() +"\" class=MagicZoomPlus id=zoom2 rel=\"selectors-class:active; zoom-width:350px; zoom-height:350px; selectors-change:mouseover;\"><img src="+ imgDetMini +"></a><br>"
-                    +"<p><a class=\"FCGridBtnZoom\" onclick=\"MagicZoomPlus.expand(zoom2); return false;\" href=\"#\">Ampliar imagem</a></p>"
-                    +"<a href=\""+imgAmpMini+"\"  rel=\"zoom-id:zoom2;\" rev=\""+ imgDetMini +"\"><img src=\""+ imgDetMini +"\" width=65 height=65 class=ZoomIMG2></a>";
+          sHtmlZoom+="<div class='fc-DivGridImg-Big'><a href="+imgAmpMini+" class=MagicZoomPlus id=zoom2 rel=\"selectors-class:active; zoom-width:350px; zoom-height:350px; selectors-change:mouseover;\"><img src="+ imgDetMini +" alt='"+sNameProd+"'></a></div>"
+                    +"<div class='fc-DivGridImg-Small1'><a href=\""+imgAmpMini+"\"  rel=\"zoom-id:zoom2;\" rev=\""+ imgDetMini +"\"><img src=\""+ imgDetMini +"\" alt='"+sNameProd+"' width=65 height=65 class=ZoomIMG2></a></div>";
         }
         else{
 
@@ -190,10 +190,16 @@ var FCGrid$ = function () {
             imgDetMini=FC$.PathPrd+novoArray[i];
             imgAmpMini=FC$.PathPrd+novoArrayAmp[i];
           }
-          sHtmlZoom+="<a href="+imgAmpMini+" rel='zoom-id:zoom2;' rev="+ imgDetMini +"><img src="+ imgDetMini +" width=65 height=65 class=ZoomIMG2></a>";
+          sHtmlZoom+="<div class='fc-DivGridImg-Small2'><a href="+imgAmpMini+" rel='zoom-id:zoom2;' rev="+ imgDetMini +"><img src="+ imgDetMini +" alt='"+sNameProd+"' width=65 height=65 class=ZoomIMG2></a></div>";
         }
       }
       document.getElementById(id).innerHTML=sHtmlZoom;
+
+      setTimeout(function(){
+        var mgZoomId = document.querySelector('#zoom2');
+        mgZoomId.setAttribute('title',sNameProd);
+      },5000);
+
       if(refreshZoom)MagicZoomPlus.refresh();
     },
 
